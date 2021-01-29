@@ -6,6 +6,7 @@ import {LinearGradient } from 'expo-linear-gradient';
 
 export default function App() {
   
+  const [estado, setEstado] = useState('selecionar');
   const [segundos, setSegundos] = useState(0);
   const [ minutos, setMinutos ] = useState(0);
   
@@ -54,16 +55,17 @@ export default function App() {
     })
     console.log(alarmeTemp);
     SetAlarmeSound(alarmeTemp);
-    alert("Alarme alterado");
+    //alert("Alarme alterado");
   }
 
   var numeros = [];
   for(var i = 1; i <= 60; i++){
     numeros.push(i);
   }
-  
-  return (
-    <View style={styles.container}>
+  if(estado == 'selecionar'){
+
+    return (
+      <View style={styles.container}>
       <StatusBar style="auto" />
         <LinearGradient 
         colors={[ 'rgba(100,10,15,0.47)', 'transparent' ]}
@@ -86,8 +88,8 @@ export default function App() {
 
       {
         numeros.map(function(val){
-         return(<Picker.Item label={val.toString()} value={val.toString()} />) 
-
+          return(<Picker.Item label={val.toString()} value={val.toString()} />) 
+          
         })
       }
 
@@ -99,12 +101,12 @@ export default function App() {
       <Picker style={{ height: 50, width: 100, color: 'white'}}
             selectedValue={segundos}
             onValueChange={(itemValue, itemIndex) => setSegundos(itemValue)}
-      >
+            >
       <Picker.Item label='0' value='0' />
      {
-        numeros.map(function(val){
+       numeros.map(function(val){
          return(<Picker.Item label={val.toString()} value={val.toString()} />) 
-
+         
         })
       }
       </Picker>
@@ -115,22 +117,30 @@ export default function App() {
           alarmeSound.map(function(val){
             if(val.selecionado)
             {
-
+              
               return (
                 
-                <TouchableOpacity onPress={() => setAlarme(val.id)} style={styles.btnEscolherSelecionado}><Text style={{color: 'white'}}>{val.som}</Text></TouchableOpacity>);
+                <TouchableOpacity onPress={() => setAlarme(val.id)} style={styles.btnEscolherSelecionado}><Text style={{color: 'rgb(252, 71, 116)'}}>{val.som}</Text></TouchableOpacity>);
               }else{
-              return (
-                
-                <TouchableOpacity onPress={() => setAlarme(val.id)} style={styles.btnEscolher}><Text style={{color: 'white'}}>{val.som}</Text></TouchableOpacity>);
-              }
-          })
+                return (
+                  
+                  <TouchableOpacity onPress={() => setAlarme(val.id)} style={styles.btnEscolher}><Text style={{color: 'white'}}>{val.som}</Text></TouchableOpacity>);
+                }
+              })
 
         }
       </View>
-
+          <TouchableOpacity onPress={() => setEstado('iniciar')} style={styles.btnIniciar}><Text style={{ fontSize: 18, textAlign: 'center', paddingTop: 35, color: 'rgb(252, 71, 116)' }}>Iniciar</Text></TouchableOpacity>
     </View>
   );
+}else if(estado == 'iniciar'){
+  return(
+    <View>
+        <Text> Init </Text>
+    </View>
+    );
+    
+}
 }
 
 const styles = StyleSheet.create({
@@ -143,7 +153,7 @@ const styles = StyleSheet.create({
   btnEscolher:
   {
     margin: 10,
-    
+    alignItems: 'center',
     width: 200,
     padding: 8,
     backgroundColor: 'rgba(80,41,110,0.9)',
@@ -151,12 +161,23 @@ const styles = StyleSheet.create({
   btnEscolherSelecionado:
   {
     margin: 10,
-    
+    fontSize: 15,
+    alignItems: 'center',
     width: 200,
     padding: 8,
-    backgroundColor: 'rgb(80,50,90)',
-    borderColor: 'black',
+    backgroundColor: 'rgb(71, 40, 102)',
+    borderColor: 'rgb(252, 71, 116)',
     borderWidth: 1,
     
   },
+  btnIniciar:{
+    backgroundColor: 'rgba(80,41,110,0.9)',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    alignItems: 'center',
+    margin: 20,
+    borderWidth: 2,
+    borderColor: 'rgb(252, 71, 116)',
+  }
 });
