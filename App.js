@@ -15,14 +15,14 @@ export default function App() {
         id: 1,
         selecionado: true,
         som: 'Alarme 1',
-        file: 'alarme1.mp3'
+        file: require('./assets/audios/alarme1.mp3'),
       },
       {
         id: 2,
 
         selecionado: false,
         som: 'Alarme 2',
-        file: 'alarme2.mp3'
+        file: require('./assets/audios/alarme2.mp3'),
 
       },
       {
@@ -30,29 +30,28 @@ export default function App() {
 
         selecionado: false,
         som: 'Alarme 3',
-        file: 'alarme1.mp3'
+        file: require('./assets/audios/alarme3.mp3'),
       },
       {
         id: 4,
 
         selecionado: false,
         som: 'Alarme 4',
-        file: 'alarme1.mp3'
-      },
+        file: require('./assets/audios/alarme4.mp3'),
+      }
   ]);
 
   
 
 
   if(estado == 'selecionar'){
-
     return (<Home SetAlarmeSound={SetAlarmeSound} estado={estado} setEstado={setEstado} alarmeSound={alarmeSound} setSegundos={setSegundos}  setMinutos={setMinutos} minutos={minutos} segundos={segundos}></Home>);
 
 }else if(estado == 'iniciar'){
   return(
     
-       <Contador SetAlarmeSound={SetAlarmeSound} setEstado={setEstado} minutos={minutos} segundos={segundos} setSegundos={setSegundos}  setMinutos={setMinutos}></Contador>
-    
+       <Contador alarmeSound={alarmeSound} SetAlarmeSound={SetAlarmeSound} setEstado={setEstado} minutos={minutos} segundos={segundos} setSegundos={setSegundos}  setMinutos={setMinutos}></Contador>
+  
     );
     
 }
